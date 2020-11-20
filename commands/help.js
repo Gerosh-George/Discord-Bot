@@ -1,4 +1,4 @@
-const { prefix } = require("../config.json");
+const prefix = "!";
 const Discord = require("../node_modules/discord.js");
 
 module.exports = {
@@ -27,7 +27,8 @@ module.exports = {
 };
 
 function createHelpEmbed(commands) {
-	var description = "List of useful commands:\n";
+	var description =
+		"I can help you with your Among Us Game😄\nList of useful commands:\n";
 
 	commands.forEach((command) => {
 		if (command.name !== "help" && command.name !== "reload")

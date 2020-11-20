@@ -1,9 +1,11 @@
+const Discord = require("../node_modules/discord.js");
+
 module.exports = {
 	name: "austart",
-	args: false,
+	args: "optional",
 	description: "Creates the voice channels for the among us game",
 	usage: "!austart",
-	aliases:["aus"],
+	aliases: ["aus"],
 	execute(message, args) {
 		let alive_channel = message.guild.channels.cache.find(
 			(c) => c.name === "Alive",
@@ -11,6 +13,32 @@ module.exports = {
 		let dead_channel = message.guild.channels.cache.find(
 			(c) => c.name === "Dead",
 		);
+
+		if (args.length > 0) {
+			const region = args[0];
+			const code = args[1];
+
+			if (code.length != 6) {
+				return message.reply("Invalid Code!").then((sentMsg) => {
+					sentMsg.react("❌");
+				});
+			}
+
+			const auEmbed = new Discord.MessageEmbed()
+				.setColor("#0099FF")
+				.setTitle(`Among Us Game started by ${message.author.tag}`)
+				.setDescription("Just type in the code and enter the room!")
+				.setThumbnail(
+					"https://www.nme.com/wp-content/uploads/2020/10/Among-Us-2-1392x884.jpg",
+				)
+				.addField("Region", region)
+				.addField("Code", code)
+				.setFooter(
+					"If you were not in General VC then you would not have been automatically added to alive channel",
+				);
+
+			message.channel.send(auEmbed);
+		}
 
 		if (alive_channel && dead_channel) {
 			transferPlayer(message.guild);
@@ -30,7 +58,7 @@ module.exports = {
 
 						channel.setParent(categoryID);
 						channel.setUserLimit(10);
-						transferPlayer(message.guild)
+						transferPlayer(message.guild);
 					});
 			}
 
@@ -48,9 +76,8 @@ module.exports = {
 						channel.setUserLimit(10);
 					});
 			}
-			
-			message.channel.send("SHHH!🤫 The Game is ready!");
 
+			message.channel.send("SHHH!🤫 The Game is ready!");
 		} catch (err) {
 			message.channel.send(
 				"Some error in creating the voice channels! (Check Permissions)",

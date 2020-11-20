@@ -1,6 +1,7 @@
 const fs = require("fs");
 
-const { prefix, token } = require("./config.json");
+//const { prefix, token } = require("./config.json");
+const prefix = "!";
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
@@ -72,7 +73,7 @@ function sendReply(message) {
 		);
 	}
 
-	if (command.name !== "help") {
+	if (command.name !== "help" && command.args != "optional") {
 		if (command.args && !args.length) {
 			let reply = `You didn't provide any arguments, ${message.author}!`;
 
@@ -92,4 +93,6 @@ function sendReply(message) {
 	}
 }
 
-client.login(token);
+client.login(process.env.BOT_TOKEN).catch((err) => {
+	console.log("Error in connecting!");
+});

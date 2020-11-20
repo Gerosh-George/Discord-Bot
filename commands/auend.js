@@ -1,10 +1,10 @@
 module.exports = {
 	name: "auend",
 	args: false,
-	description: "Removes the channels created by austart command",
+	description: "Moves all user into general voice channel!",
 	usage: "!auend",
 	aliases: ["aue"],
-	async execute(message, _args) {
+	execute(message, _args) {
 		let alive_channel = message.guild.channels.cache.find(
 			(c) => c.name === "Alive",
 		);
@@ -23,25 +23,11 @@ module.exports = {
 			return;
 		}
 
-		await transferPlayers(message.guild);
+		transferPlayers(message.guild);
 
 		message.channel.send("Game has ended!").then((sentMsg) => {
 			sentMsg.react("💀");
 		});
-
-		if (alive_channel) {
-			console.log("In alive delete");
-			alive_channel
-				.delete()
-				.catch((err) => console.error("Error in deleting alive"));
-		}
-
-		if (dead_channel) {
-			console.log("In dead delete");
-			dead_channel
-				.delete()
-				.catch((err) => console.error("Error in deleting dead"));
-		}
 	},
 };
 
@@ -58,26 +44,11 @@ function transferPlayers(guild) {
 		(c) => c.name === "General" && c.type === "voice",
 	);
 
-	return new Promise((resolve, reject) => {
-		alive_channel.members.forEach((member) => {
-			console.log("In alive move");
-			member.voice
-				.setChannel(general_VChannel.id)
-				.then((res) => console.log("Worked"))
-				.catch((err) =>
-					console.error("Error in moving alive\n ------------ \n", err),
-				);
-		});
+	alive_channel.members.forEach(async (member) => {
+		member.voice.setChannel(general_VChannel.id);
+	});
 
-		dead_channel.members.forEach((member) => {
-			console.log("In dead move");
-			member.voice
-				.setChannel(general_VChannel.id)
-				.then((res) => console.log("Worked"))
-				.catch((err) => {
-					console.error("Error in moving dead\n ------------ \n", err);
-				});
-		});
-		resolve(true);
+	dead_channel.members.forEach(async (member) => {
+		member.voice.setChannel(general_VChannel.id);
 	});
 }

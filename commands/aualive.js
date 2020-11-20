@@ -2,7 +2,7 @@ module.exports = {
 	name: "aualive",
 	args: true,
 	aliases: ["aua"],
-	description: "Moving user from dead to alive channel coz of your mistake😠",
+	description: "Moving user from dead to alive channel coz of your mistake 😠",
 	usage: "<user tag>",
 	execute(message, args) {
 		let alive_channel = message.guild.channels.cache.find(

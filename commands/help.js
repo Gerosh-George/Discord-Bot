@@ -28,7 +28,7 @@ module.exports = {
 
 function createHelpEmbed(commands) {
 	var description =
-		"I can help you with your Among Us Game😄\nList of useful commands:\n";
+		"I can help you with your Among Us Game 😄\nList of useful commands:\n";
 
 	commands.forEach((command) => {
 		if (command.name !== "help" && command.name !== "reload")

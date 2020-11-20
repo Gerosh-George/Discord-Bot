@@ -1,0 +1,17 @@
+# Discord-Bot
+
+Discord Bot made using Discord.js and node.js
+
+Dicord.js Documentation: https://discord.js.org/
+
+Dicord.js Guide: https://discordjs.guide/
+
+And a helpful youtube tutorial series: https://www.youtube.com/watch?v=gV4iltEdBs4&list=PLaxxQQak6D_fxb9_-YsmRwxfw5PH9xALe
+<br> This tutorial actually helped me with how to host the bot on Heroku.
+<br> Most of the stuffs you can implement by just seeing the guide and dicord.js documentation.
+
+<br>
+The bot that I have build here is basically a customized one which helps me to play the Among Us game with my friends.
+<br><br>
+
+![image](https://user-images.githubusercontent.com/62696039/99772151-415d7300-2b30-11eb-85d8-ca68843a99ec.png)

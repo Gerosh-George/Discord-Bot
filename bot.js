@@ -48,6 +48,10 @@ let hey_replies = [
 
 // send replies
 function sendReply(message) {
+	if (message.channel.type === "dm" && !message.author.bot) {
+		return message.reply("Sorry! I don't take commands in DM channel 🤖");
+	}
+
 	//calling gideon
 	if (message.content.toLowerCase() === "hey gideon") {
 		var reply_back =

@@ -14,4 +14,5 @@ And a helpful youtube tutorial series: https://www.youtube.com/watch?v=gV4iltEdB
 The bot that I have build here is basically a customized one which helps me to play the Among Us game with my friends.
 <br><br>
 
-![image](https://user-images.githubusercontent.com/62696039/99772151-415d7300-2b30-11eb-85d8-ca68843a99ec.png)
+![image](https://user-images.githubusercontent.com/62696039/99907027-889a5e00-2d00-11eb-909d-2d8ef9d6895c.png)
+

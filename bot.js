@@ -93,6 +93,7 @@ function sendReply(message) {
 	}
 }
 
+//using env variable containing my bot token
 client.login(process.env.BOT_TOKEN).catch((err) => {
 	console.log("Error in connecting!");
 });

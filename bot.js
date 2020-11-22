@@ -96,3 +96,9 @@ function sendReply(message) {
 client.login(process.env.BOT_TOKEN).catch((err) => {
 	console.log("Error in connecting!");
 });
+
+// client
+// 	.login("ADD_Your_Bot_Token_here")
+// 	.catch((err) => {
+// 		console.log("Error in connecting!");
+// 	});

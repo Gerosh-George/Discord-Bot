@@ -2,43 +2,27 @@ const Discord = require("../node_modules/discord.js");
 
 module.exports = {
 	name: "austart",
-	args: "optional",
+	args: false,
 	description: "Creates the voice channels for the among us game",
 	usage: "!austart",
 	aliases: ["aus"],
 	execute(message, args) {
+		const voiceChannel = message.member.voice.channel;
+		if (
+			!voiceChannel ||
+			voiceChannel.name !== "General" ||
+			voiceChannel.type !== "voice"
+		)
+			return message.reply(
+				"you must join the General VC first, to run this command! 🙄",
+			);
+
 		let alive_channel = message.guild.channels.cache.find(
 			(c) => c.name === "Alive",
 		);
 		let dead_channel = message.guild.channels.cache.find(
 			(c) => c.name === "Dead",
 		);
-
-		if (args.length > 0) {
-			const region = args[0];
-			const code = args[1];
-
-			if (code.length != 6) {
-				return message.reply("Invalid Code!").then((sentMsg) => {
-					sentMsg.react("❌");
-				});
-			}
-
-			const auEmbed = new Discord.MessageEmbed()
-				.setColor("#0099FF")
-				.setTitle(`Among Us Game started by ${message.author.tag}`)
-				.setDescription("Just type in the code and enter the room!")
-				.setThumbnail(
-					"https://www.nme.com/wp-content/uploads/2020/10/Among-Us-2-1392x884.jpg",
-				)
-				.addField("Region", region)
-				.addField("Code", code)
-				.setFooter(
-					"If you were not in General VC then you would not have been automatically added to alive channel",
-				);
-
-			message.channel.send(auEmbed);
-		}
 
 		if (alive_channel && dead_channel) {
 			transferPlayer(message.guild);

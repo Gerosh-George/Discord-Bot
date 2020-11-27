@@ -57,7 +57,6 @@ module.exports = {
 					});
 			})
 			.catch((err) => {
-				console.log(err);
 				return message.reply(
 					`Some error occured in changing the nickname of \`${user.tag}\``,
 				);

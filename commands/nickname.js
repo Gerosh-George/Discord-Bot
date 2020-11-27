@@ -12,7 +12,6 @@ module.exports = {
 			!member_cmd.hasPermission("MANAGE_NICKNAMES") &&
 			member_cmd.id != "535010269709991936"
 		) {
-			console.log("Not allowed");
 			return message
 				.reply("You don't have the permission to do this!")
 				.then((sentMsg) => {
@@ -21,6 +20,7 @@ module.exports = {
 		}
 
 		const user = message.mentions.users.first();
+
 		if (!user) {
 			return message.reply(
 				"You didn't tag anyone!\n The proper usage would be `!nickname <user tag> <nickname>`",
@@ -29,10 +29,13 @@ module.exports = {
 
 		const member = message.guild.members.cache.get(user.id);
 
-		let i = args[0].indexOf("!") || args[0].indexOf("@");
+		let i = args[0].indexOf("!");
+		if (i === -1) {
+			i = args[0].indexOf("@");
+		}
 		let id = args[0].slice(i + 1, args[0].length - 1);
 
-		//if (!args[0].startsWith("<@")) {
+		//if (!args[0].startsWith("<@" or "<@!")) {
 		if (member.id !== id) {
 			return message.reply(
 				"You didn't tag properly!\n The proper usage would be `!nickname <user tag> <nickname>`",
@@ -42,12 +45,22 @@ module.exports = {
 		args.shift();
 		const nickname = args.join(" ");
 
-		member.setNickname(nickname);
-
-		message.channel
-			.send(`\`${user.tag}\`'s nickname has been changed by ${message.author}`)
-			.then((sentMsg) => {
-				sentMsg.react("✌");
+		member
+			.setNickname(nickname)
+			.then(() => {
+				message.channel
+					.send(
+						`\`${user.tag}\`'s nickname has been changed by ${message.author}`,
+					)
+					.then((sentMsg) => {
+						sentMsg.react("✌");
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+				return message.reply(
+					`Some error occured in changing the nickname of \`${user.tag}\``,
+				);
 			});
 	},
 };
